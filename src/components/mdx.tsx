@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from 'next/link';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { highlight } from '@/lib/shiki';
 import React from 'react';
+import Link from './link';
+import Code from './code';
 
 function Table({ data }: any) {
   const headers = data.headers.map((header: any, index: any) => (
@@ -64,17 +64,6 @@ function RoundedImage(props: any) {
   );
 }
 
-async function Code({ children, ...props }: any) {
-  // import { highlight } from 'sugar-high'
-  const codeHTML = await highlight(children);
-  return (
-    <code
-      dangerouslySetInnerHTML={{ __html: codeHTML }}
-      {...props}
-    />
-  );
-}
-
 function slugify(str: any) {
   return str
     .toString()
@@ -108,6 +97,17 @@ function createHeading(level: any) {
   return Heading;
 }
 
+function Paragraph({ children, ...props }: any) {
+  return (
+    <p
+      {...props}
+      className={'py-2'}
+    >
+      {children}
+    </p>
+  );
+}
+
 const components = {
   h1: createHeading(1),
   h2: createHeading(2),
@@ -116,9 +116,10 @@ const components = {
   h5: createHeading(5),
   h6: createHeading(6),
   Image: RoundedImage,
+  p: Paragraph,
   a: CustomLink,
   code: Code,
-  Table,
+  table: Table,
 };
 
 export default function CustomMDX(props: any) {

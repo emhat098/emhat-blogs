@@ -1,21 +1,18 @@
-import type { Highlighter } from 'shiki';
-import { createHighlighter } from 'shiki';
+import { createHighlighter, makeSingletonHighlighter } from 'shiki';
+import { bundledLanguages } from 'shiki/bundle/web';
 
-let highlighter: Highlighter;
+const getHighlighter = makeSingletonHighlighter(createHighlighter);
 
 export async function highlight(code: string) {
-  if (!highlighter) {
-    highlighter = await createHighlighter({
-      langs: ['javascript', 'typescript'],
-      themes: ['tokyo-night'],
-    });
-  }
-  const html = highlighter.codeToHtml(code, {
-    lang: 'javascript',
-    theme: 'tokyo-night',
+  const highlighter = await getHighlighter({
+    langs: [...Object.keys(bundledLanguages)],
+    themes: ['nord'],
   });
 
-  // highlighter.dispose();
+  const html = highlighter.codeToHtml(code, {
+    theme: 'nord',
+    lang: 'typescript',
+  });
 
   return html;
 }

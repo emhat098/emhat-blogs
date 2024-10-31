@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id],
+p[id] {
+  @apply my-2;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+pre code pre {
+  @apply px-4 py-6 rounded-md shadow-xl my-2;
+}
+
+aside {
+  @apply bg-neutral-100 px-4 py-2 my-2 rounded-lg shadow-lg;
+}
+
+ul {
+  @apply ml-4 list-disc;
+}
+
+ol {
+  @apply ml-4 list-decimal;
+}

@@ -1,10 +1,8 @@
 import { formatDate, getBlogBySlug } from '@/lib/get-blog';
 import { notFound } from 'next/navigation';
 import { BASE_URL } from '@/site.config.mjs';
-import dynamic from 'next/dynamic';
-
-const CustomMDX = dynamic(() => import('@/components/mdx'), {
-});
+import CustomMDX from '@/components/mdx';
+import { Suspense } from 'react';
 
 interface Params {
   params: Promise<{
@@ -53,21 +51,24 @@ const BlogPage = async (props: Params) => {
             url: `${BASE_URL}/blog/${blog.slug}`,
             author: {
               '@type': 'Person',
-              name: 'My Portfolio',
+              name: 'Em Ha Tuan Portfolio',
             },
           }),
         }}
       />
-      <h1 className='title font-bold text-4xl tracking-tighter'>
+      <h1 className='title font-light text-4xl tracking-tighter'>
         {blog.metadata.title}
       </h1>
-      <div className='flex justify-between items-center mt-2 mb-8 text-sm'>
+      <div className='flex justify-between items-center my-2 text-sm'>
         <p className='text-sm font-bold text-neutral-600 dark:text-neutral-400'>
           {formatDate(blog.metadata.publishedAt)}
         </p>
       </div>
-      <article className='prose'>
-        <CustomMDX source={blog.content} />
+      <hr className={'my-2'} />
+      <article>
+        <Suspense fallback={<>{'Loading ...'}</>}>
+          <CustomMDX source={blog.content} />
+        </Suspense>
       </article>
     </section>
   );

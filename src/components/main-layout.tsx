@@ -4,6 +4,8 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { FC, PropsWithChildren } from 'react';
 import Navbar from './navbar';
+import Container from './container';
+import NextTopLoader from 'nextjs-toploader';
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -13,8 +15,12 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
       suppressHydrationWarning
     >
       <body>
+        <NextTopLoader
+          showSpinner={false}
+          color={'black'}
+        />
         <Navbar />
-        <main>{children}</main>
+        <Container as={'main'}>{children}</Container>
       </body>
     </html>
   );
