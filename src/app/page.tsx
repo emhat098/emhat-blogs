@@ -48,7 +48,7 @@ const BlogPage = async () => {
       </h1>
       <div className='flex justify-between items-center my-2 text-sm'>
         <p className='text-sm font-bold text-neutral-600 dark:text-neutral-400'>
-          {formatDate(blog.metadata.publishedAt)}
+          {formatDate(new Date().toString())}
         </p>
       </div>
       <hr className={'my-2'} />

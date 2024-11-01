@@ -4,8 +4,11 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import React from 'react';
 import Link from './link';
 import Code from './code';
+import { BASE_URL } from '@/site.config.mjs';
+import toc from '@jsdevtools/rehype-toc';
+import remarkGfm from 'remark-gfm';
 
-function Table({ data }: any) {
+export function Table({ data }: any) {
   const headers = data.headers.map((header: any, index: any) => (
     <th key={index}>{header}</th>
   ));
@@ -122,11 +125,21 @@ const components = {
   table: Table,
 };
 
-export default function CustomMDX(props: any) {
+export default function CustomMDX(this: any, props: any) {
   return (
     <MDXRemote
-      {...props}
+      source={props.source}
       components={{ ...components, ...(props.components || {}) }}
+      options={{
+        mdxOptions: {
+          baseUrl: BASE_URL,
+          rehypePlugins: [
+            toc.bind(this, {
+              nav: false,
+            }),
+          ],
+        },
+      }}
     />
   );
 }

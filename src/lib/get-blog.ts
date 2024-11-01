@@ -53,6 +53,14 @@ export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'src', 'markdown'));
 }
 
+export function getBlogLinks() {
+  const blogs = getBlogPosts();
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+    metadata: blog.metadata,
+  }));
+}
+
 export function getBlogBySlug(slug: string) {
   const blogs = getBlogPosts();
   return blogs.find((c) => c.slug === slug);

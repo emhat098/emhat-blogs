@@ -17,7 +17,7 @@ const Navbar = () => {
           Em Ha Tuan
         </Link>
         <Link href={'/'}>Home</Link>
-        <Link href={'/'}>Blogs</Link>
+        <Link href={'/blogs'}>Blogs</Link>
       </div>
       <div className='flex gap-4 items-center'>
         <Link
